@@ -31,10 +31,11 @@ func main() {
 	// 	AllowOrigins: "http://localhost:5173",
 	// 	AllowHeaders: "Origin,Content-Type,Accept",
 	// }))
-
-	err := godotenv.Load(".env")
-	if err != nil {
-		log.Fatal("Error loading .env file", err)
+	if os.Getenv("ENV") != "production" {
+		err := godotenv.Load(".env")
+		if err != nil {
+			log.Fatal("Error loading .env file", err)
+		}
 	}
 	MONGODB_URI := os.Getenv("MONGODB_URI")
 	clientOptions := options.Client().ApplyURI(MONGODB_URI)
